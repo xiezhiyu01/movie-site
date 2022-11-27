@@ -1,0 +1,97 @@
+
+        .article {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h3 {
+            font-size: 20px;
+            color: darkgreen;
+        }
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+        .movie {
+            margin-bottom: 10px;
+            width: 24%;
+        }
+        .movie:last-child {
+            margin-right: auto;
+        }
+        #mimg {
+            height: 230px;
+        }
+        #mtitle {
+            font-size: 12px;
+            height: 50px;
+            width: 150px;
+        }
+        .page-item {
+            height: 40px;
+            width: 40px;
+        }
+        .page-link {
+            font-size: 14px;
+            color: darkgreen;
+        }
+        .page-link {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .page-link-selected {
+            font-size: 14px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        button {
+            height: 30px;
+            width: 30px;
+            border: 1px solid;
+            border-color: rgba(0,100,0,0.1);
+            border-radius: 5px;
+        }
+        button:hover {
+            border-color: rgba(0,100,0,1);
+        }
+        .skip {
+            background-color: transparent;
+            border: none;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        }
+        input[type="number"]{
+        -moz-appearance: textfield;
+        }
+        input {
+            border: 1px solid;
+            border-shadow: none;
+            outline: none;
+            border-radius: 10px;
+
+        }
+        a {
+            text-decoration: none;
+            color: rgb(0,50,100);
+        }
+        a:hover {
+            text-decoration: underline;
+            color: lightcoral;
+        }
+        #navlink {
+            margin-right: 20px;
+            line-height: 24px;
+        }
+        #navlink a {
+            color: lightgray;
+            text-decoration: none;
+        }
+        #navlink a:hover {
+            color: #fdc4b6;
+        }
+        .page-link {
+            margin-left:-2px;
+        }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ celebrity.name }}</title>
+
+</head>
+<body>
+
+
+<div style="background-color:rgb(0,139,139);  height:20px; "> </div>
+<div style="background-color:rgb(0,139,139);  height:45px; ">
+<div class="search-area" style="display: flex; width:40%;  margin:0 auto; text-align: center; ">
+    <span id="navlink"> <a href="/" >电影列表</a> </span>
+    <span id="navlink"> <a href="/explorecelebrity">演员列表</a> </span>
+    <span style="margin-left: 20px;">
+        <form action="{% url 'search' %}">
+        <input placeholder="Press Enter to search" name="keyword" id="search-bar" class="search-bar"
+            style="text-indent: 10px;width:150px; height:20px; outline:none; box-shadow:unset; border-radius: 10px;">
+{#            <button action="{% url 'search' %}" style="width: 50px">搜索</button>#}
+        <select name="option" id="search-option" style="margin-left:5px;border:1px solid;border-shadow:none;outline:none;border-radius: 10px;height:20px;">
+            <option value ="movie">在电影中搜索</option>
+            <option value ="celebrity">在演员中搜索</option>
+            <option value ="comment">在影评中搜索</option>
+        </select>
+        </form>
+     </span>
+</div>
+</div>
+<div class="article">
+
+
+
+<h1>{{ celebrity.name }} </h1>
+<div>
+<img id="cimg" src="{% static celebrity.imgSrc %}" alt="{{ celebrity.name }}" >
+</div>
+<div>
+    <h3> <strong>性别 · · · · · ·</strong> </h3>
+    {{ celebrity.gender }}
+</div>
+<div>
+    <h3> <strong>影人简介 · · · · · ·</strong> </h3>
+    {{ celebrity.intro |safe }}
+</div>
+<div>
+    <h3> <strong>参演电影 · · · · · ·</strong> </h3>
+    <div> <ul>
+    {% for id,movie in movies.items %}
+        <li class="movie"> <span>
+            <div id="mimg"> <a href="/movie/{{ id }}"><img src="{% static movie.imgSrc %}" width="150px" /> </a></div>
+            <div id="mtitle"> <a href="/movie/{{ id }}">{{ movie.title }} </a></div>
+        </span></li>
+    {% endfor %}
+    </ul> </div>
+</div>
+<div>
+    <h3> <strong>合作影人 · · · · · ·</strong> </h3>
+    <div> <ul>
+    {% for id,star in coop.items %}
+        <li class="movie"> <span>
+            <div id="mimg"> <a href="/celebrity/{{ id }}"><img src="{% static star.0.imgSrc %}" width="150px" /> </a></div>
+            <div id="mtitle"> <a href="/celebrity/{{ id }}">{{ star.0.name }}</a> <br>
+              合作影片:{{ star.1 }}部</div>
+        </span></li>
+    {% endfor %}
+    </ul> </div>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影列表</title>
+</head>
+<body>
+
+<div style="background-color:rgb(0,139,139);  height:20px; "> </div>
+<div style="background-color:rgb(0,139,139);  height:45px; ">
+{#<div class="search-area" style="display: flex; width:50%;  margin:0 auto; text-align: center; ">#}
+<div class="search-area" style="display: flex; width:40%;  margin:0 auto; text-align: center; ">
+    <span id="navlink"> <a href="/" >电影列表</a> </span>
+    <span id="navlink"> <a href="/explorecelebrity">演员列表</a> </span>
+    <span style="margin-left: 20px;">
+        <form action="{% url 'search' %}">
+        <input placeholder="Press Enter to search" name="keyword" id="search-bar" class="search-bar"
+            style="text-indent: 10px;width:150px; height:20px; outline:none; box-shadow:unset; border-radius: 10px;">
+        <select name="option" id="search-option" style="margin-left:5px;border:1px solid;border-shadow:none;outline:none;border-radius: 10px;height:20px;">
+            <option value ="movie">在电影中搜索</option>
+            <option value ="celebrity">在演员中搜索</option>
+            <option value ="comment">在影评中搜索</option>
+        </select>
+{#            <button action="{% url 'search' %}" style="width:50px;height:25px;margin-left: 5px;">搜索</button>#}
+        </form>
+     </span>
+</div>
+</div>
+<div class="article" >
+
+<h1 style="margin-bottom: 30px;"> 电影列表 </h1>
+<div> <ul>
+    {% for movie in posts %}
+        <li class="movie"> <span>
+            <div id="mimg"> <a href="/movie/{{ movie.id }}"><img src="{% static movie.imgSrc %}" width="150px" /> </a></div>
+            <div id="mtitle"> <a href="/movie/{{ movie.id }}">{{ movie.title }} </a></div>
+        </span></li>
+    {% endfor %}
+</ul> </div>
+
+<span class="page"  >
+      <nav style="width:75%;margin:0 auto;text-align: center;">
+        <ul class="pagination">
+          {% if posts.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous">
+              <button> <span aria-hidden="true">&laquo;</span></button>
+            </a>
+           </li>
+          {% endif %}
+
+          {% if 1 not in page_range %}
+          <li class="page-item"> <button>
+            <a class="page-link" href="?page=1" aria-label="Previous">
+              <span aria-hidden="true">1</span>
+            </a>
+          </button></li>
+          {% endif %}
+
+        {% if 2 not in page_range and pagecnt != 1 %}
+          <li class="page-item"> <button class="skip">
+              <span aria-hidden="true">···</span>
+          </button></li>
+          {% endif %}
+
+          {% for num in page_range %}
+            {% if num == posts.number %}
+              <li class="page-item"> <button>
+                  <a class="page-link-selected">{{ num }}</a>
+              </button></li>
+            {% else %}
+              <li class="page-item"> <button>
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </button> </li>
+            {% endif %}
+          {% endfor %}
+
+        {% if pagecntminus not in page_range and pagecnt != 1 %}
+          <li class="page-item"> <button class="skip">
+              <span aria-hidden="true">···</span>
+          </button></li>
+          {% endif %}
+
+        {% if pagecnt not in page_range %}
+          <li class="page-item"> <button>
+            <a class="page-link" href="?page={{ pagecnt }}" aria-label="Previous">
+              <span aria-hidden="true">{{ pagecnt }}</span>
+            </a>
+          </button></li>
+          {% endif %}
+
+          {% if posts.has_next %}
+          <li class="page-item"> <button>
+            <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </button> </li>
+          {% endif %}
+
+            <li style="display: flex">
+                <span style="line-height: 30px; margin-left: 30px;">跳至 &nbsp</span>
+                <input type="number" id="jumppage" style="width: 50px; height: 25px; " />
+                <span style="line-height: 30px;">&nbsp 页</span>
+                <input type="button" value="跳转" onclick="jump()" style="margin-left: 10px; height:30px;border:1px solid;border-radius:5px;" />
+                <script>
+                    function jump() {
+                        var p = document.getElementById("jumppage").value;
+                        {#if(p<=0)#}
+                        location.href = 'http://127.0.0.1:8000/?page=' + p.toString();
+                    }
+                </script>
+            </li>
+
+        </ul>
+      </nav>
+</span>
+
+</div>
+
+</html>
